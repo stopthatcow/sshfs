@@ -3960,7 +3960,11 @@ int main(int argc, char *argv[])
 #endif /* __APPLE__ */
 	g_thread_init(NULL);
 
-	sshfs.blksize = 4096;
+	#ifdef __APPLE__
+	    sshfs.blksize = 0;
+	#else
+	    sshfs.blksize = 4096;
+	#endif
 	/* SFTP spec says all servers should allow at least 32k I/O */
 	sshfs.max_read = 32768;
 	sshfs.max_write = 32768;
